@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Profile - GreenHaven</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f1f2f4;
+    }
+    nav.navbar {
+      background-color: white;
+      padding: 25px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .nav-brand {
+      font-size: 22px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #2e7d32;
+    }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropbtn {
+      background: none;
+      border: none;
+      color: black;
+      font-size: 20px;
+      padding: 5px 20px;
+      cursor: pointer;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    .dropdown-content a {
+      color: black;
+      padding: 10px 15px;
+      text-decoration: none;
+      display: block;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .container {
+      display: flex;
+      max-width: 1200px;
+      margin: 30px auto;
+    }
+    .sidebar {
+      width: 300px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .sidebar h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .sidebar a {
+      display: block;
+      padding: 10px;
+      color: #333;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-bottom: 5px;
+    }
+    .sidebar a:hover,
+    .sidebar a.active {
+      background-color: #f0f0f0;
+      font-weight: bold;
+    }
+    .main-profile {
+      flex-grow: 1;
+      background-color: #fff;
+      margin-left: 20px;
+      padding: 30px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .main-profile h2 {
+      margin-top: 0;
+    }
+    .profile-section {
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+    input[type="text"], input[type="email"], input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .gender {
+      margin-top: 10px;
+    }
+    .gender input {
+      margin-right: 5px;
+    }
+    .otp-verification-box {
+      margin-bottom: 20px;
+    }
+    .otp-verification-box button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .otp-verification-box button:hover {
+      background-color: #45a049;
+    }
+    .otp-verification-box button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    #otpSection {
+      display: none;
+      margin-top: 10px;
+    }
+    #otpStatus {
+      margin-top: 10px;
+      color: #333;
+    }
+    .save-btn {
+      background-color: #fb641b;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .save-btn:hover:not(:disabled) {
+      background-color: #e65100;
+    }
+    .save-btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    .profile-pic-container {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .profile-pic {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <i class="fa-brands fa-canadian-maple-leaf"></i>
+      <span>GreenHaven</span>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">
+        <i class="fa-solid fa-user"></i> Account
+      </button>
+      <div class="dropdown-content">
+        <a href="main.html"><i class="fa-solid fa-id-badge"></i> Home</a>
+        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i> My Cart</a>
+        <a href="shop.html"><i class="fa-solid fa-store"></i> Store</a>
+        <a href="orders.html"><i class="fa-solid fa-box-open"></i> My Orders</a>
+        <a href="index.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="sidebar">
+      <h3><i class="fa-solid fa-user"></i> Hello</h3>
+      <a href="orders.html"><i class="fa-solid fa-box"></i> My Orders</a>
+      <h3>ACCOUNT SETTINGS</h3>
+      <a href="profile.html" class="active"><i class="fa-solid fa-id-card"></i> Profile Info</a>
+      <a href="#"><i class="fa-solid fa-location-dot"></i> Addresses</a>
+      <a href="#"><i class="fa-solid fa-file"></i> PAN Info</a>
+      <h3>PAYMENTS</h3>
+      <a href="#"><i class="fa-solid fa-gift"></i> Gift Cards</a>
+      <a href="#"><i class="fa-solid fa-credit-card"></i> Saved Cards</a>
+      <h3>MY STUFF</h3>
+      <a href="wishlist.html"><i class="fa-solid fa-heart"></i> Wishlist</a>
+    </div>
+
+    <div class="main-profile">
+      <h2>Personal Information</h2>
+      <div class="profile-pic-container">
+        <img id="profilePic" src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-pic">
+        <label for="profilePicInput">Profile Picture</label>
+        <input type="file" id="profilePicInput" accept="image/*">
+      </div>
+      <div class="profile-section">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" placeholder="Enter first name">
+
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" placeholder="Enter last name">
+
+        <label>Gender</label>
+        <div class="gender">
+          <label for="male">Male</label>
+          <input type="radio" id="male" name="gender" value="Male">
+          <label for="female">Female</label>
+          <input type="radio" id="female" name="gender" value="Female">
+        </div>
+      </div>
+
+      <div class="otp-verification-box">
+        <h3>📩 Email Verification</h3>
+        <div>
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="Enter your email">
+          <button id="sendEmailOtpBtn">Send Email OTP</button>
+          <div id="otpSection">
+            <label for="emailOtp">Enter Email OTP</label>
+            <input type="text" id="emailOtp" placeholder="6-digit OTP">
+            <button id="verifyEmailOtpBtn">Verify Email OTP</button>
+          </div>
+          <p id="otpStatus"></p>
+        </div>
+      </div>
+
+      <button class="save-btn" id="saveBtn" disabled>Save Profile</button>
+
+      <h3>FAQs</h3>
+      <p>What happens when I update my email?</p>
+      <p>You’ll receive an OTP to verify your new email address.</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const firstNameInput = document.getElementById("firstName");
+      const lastNameInput = document.getElementById("lastName");
+      const emailInput = document.getElementById("email");
+      const emailOtpInput = document.getElementById("emailOtp");
+      const sendEmailOtpBtn = document.getElementById("sendEmailOtpBtn");
+      const verifyEmailOtpBtn = document.getElementById("verifyEmailOtpBtn");
+      const saveBtn = document.getElementById("saveBtn");
+      const otpSection = document.getElementById("otpSection");
+      const otpStatus = document.getElementById("otpStatus");
+      const genderInputs = document.getElementsByName("gender");
+      const profilePicInput = document.getElementById("profilePicInput");
+      const profilePicImg = document.getElementById("profilePic");
+
+      let isEmailVerified = false;
+      let verifiedEmail = "";
+      let userId = "";
+
+      // Load user data from localStorage (only userId)
+      const user = JSON.parse(localStorage.getItem("user")) || { userId: "" };
+      userId = user.userId;
+
+      // Preview profile picture
+      profilePicInput.addEventListener("change", () => {
+        const file = profilePicInput.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            profilePicImg.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // Check user status and load profile
+      async function checkUserStatus() {
+        if (!userId) {
+          otpStatus.innerText = "Please log in to manage your profile.";
+          return;
+        }
+
+        try {
+          const res = await fetch(`https://new-plant-1.onrender.com/user-status/${userId}`);
+          const data = await res.json();
+
+          if (data.success && data.user) {
+            firstNameInput.value = data.user.firstName || "";
+            lastNameInput.value = data.user.lastName || "";
+            emailInput.value = data.user.email || "";
+            if (data.user.gender) {
+              document.getElementById(data.user.gender.toLowerCase()).checked = true;
+            }
+            if (data.user.profilePicture) {
+              profilePicImg.src = data.user.profilePicture;
+            }
+
+            if (data.user.emailVerified) {
+              isEmailVerified = true;
+              verifiedEmail = data.user.email;
+              emailInput.disabled = true;
+              sendEmailOtpBtn.style.display = "none";
+              otpSection.style.display = "none";
+              otpStatus.innerText = "✅ Email already verified!";
+              saveBtn.disabled = false;
+            }
+          } else {
+            otpStatus.innerText = data.message || "Error loading profile.";
+          }
+        } catch (err) {
+          console.error("Check user status error:", err);
+          otpStatus.innerText = "Error loading profile.";
+        }
+      }
+
+      // Send Email OTP
+      sendEmailOtpBtn.onclick = async () => {
+        const email = emailInput.value;
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          otpStatus.innerText = "Enter a valid email address.";
+          return;
+        }
+
+        sendEmailOtpBtn.disabled = true;
+        sendEmailOtpBtn.innerText = "Sending...";
+
+        try {
+          const res = await fetch("https://new-plant-1.onrender.com/send-email-otp", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email })
+          });
+          const data = await res.json();
+          otpStatus.innerText = data.message;
+          if (data.success) {
+            otpSection.style.display = "block";
+            emailInput.disabled = true;
+            sendEmailOtpBtn.style.display = "none";
+          }
+        } catch (err) {
+          console.error("Send email OTP error:", err);
+          otpStatus.innerText = "Error sending OTP.";
+        } finally {
+          sendEmailOtpBtn.disabled = false;
+          sendEmailOtpBtn.innerText = "Send Email OTP";
+        }
+      };
+
+      // Verify Email OTP
+      verifyEmailOtpBtn.onclick = async () => {
+        const email = emailInput.value;
+        const otp = emailOtpInput.value;
+
+        if (!otp) {
+          otpStatus.innerText = "Enter the OTP.";
+          return;
+        }
+
+        verifyEmailOtpBtn.disabled = true;
+        verifyEmailOtpBtn.innerText = "Verifying...";
+
+        try {
+          const res = await fetch("https://new-plant-1.onrender.com/verify-email-otp", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, otp })
+          });
+          const data = await res.json();
+          otpStatus.innerText = data.message;
+          if (data.success) {
+            isEmailVerified = true;
+            verifiedEmail = email;
+            otpSection.style.display = "none";
+            verifyEmailOtpBtn.style.display = "none";
+            saveBtn.disabled = false;
+          }
+        } catch (err) {
+          console.error("Verify email OTP error:", err);
+          otpStatus.innerText = "Error verifying OTP.";
+        } finally {
+          verifyEmailOtpBtn.disabled = false;
+          verifyEmailOtpBtn.innerText = "Verify Email OTP";
+        }
+      };
+
+      // Save Profile
+      saveBtn.onclick = async () => {
+        if (!isEmailVerified) {
+          otpStatus.innerText = "Please verify your email before saving.";
+          return;
+        }
+
+        const firstName = firstNameInput.value;
+        const lastName = lastNameInput.value;
+        const gender = Array.from(genderInputs).find(input => input.checked)?.value;
+        const profilePicFile = profilePicInput.files[0];
+
+        if (!firstName || !lastName) {
+          otpStatus.innerText = "Please enter your first and last name.";
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append("userId", userId);
+        formData.append("firstName", firstName);
+        formData.append("lastName", lastName);
+        formData.append("email", verifiedEmail);
+        if (gender) formData.append("gender", gender);
+        if (profilePicFile) formData.append("profilePicture", profilePicFile);
+
+        saveBtn.disabled = true;
+        saveBtn.innerText = "Saving...";
+
+        try {
+          const res = await fetch("https://new-plant-1.onrender.com/update-profile", {
+            method: "POST",
+            body: formData
+          });
+          const data = await res.json();
+          otpStatus.innerText = data.message;
+          if (data.success) {
+            alert("Profile updated successfully!");
+            if (data.profilePicture) {
+              profilePicImg.src = data.profilePicture;
+            }
+          }
+        } catch (err) {
+          console.error("Save profile error:", err);
+          otpStatus.innerText = "Error saving profile.";
+        } finally {
+          saveBtn.disabled = false;
+          saveBtn.innerText = "Save Profile";
+        }
+      };
+
+      checkUserStatus();
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,38 @@
+{
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "axios": "^1.10.0",
+    "bcryptjs": "^3.0.2",
+    "body-parser": "^2.2.0",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.1",
+    "multer": "^2.0.1",
+    "nodemailer": "^7.0.4",
+    "openai": "^4.73.0",
+    "twilio": "^5.7.1",
+    "ws": "^8.18.3"
+  },
+  "name": "plants-html",
+  "version": "1.0.0",
+  "description": "node js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vansh565/plant.git"
+  },
+  "keywords": [
+    "code",
+    "step"
+  ],
+  "author": "Vansh sharma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vansh565/plant/issues"
+  },
+  "homepage": "https://github.com/vansh565/plant#readme"
+}

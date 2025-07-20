@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="UTF-8" />
+  <title>My Wishlist - GreenHaven</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f1f2f4;
+    }
+    /* Navbar */
+    nav.navbar {
+      background-color: white;
+      padding: 25px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .nav-brand {
+      font-size: 22px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #2e7d32;
+    }
+    .nav-links a {
+      color: #333;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .nav-links a.active {
+      border-bottom: 2px solid #2e7d32;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      margin-top: 20px;
+      justify-content: center;
+      justify-items: center;
+      align-items: center;
+      align-content: center;
+    }
+    .dropbtn {
+      background: none;
+      border: none;
+      color: black;
+      font-size: 20px;
+      padding: 5px 20px;
+      cursor: pointer;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    .dropdown-content a {
+      color: black;
+      padding: 10px 15px;
+      text-decoration: none;
+      display: block;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    nav.navbar {
+      background-color: white;
+      padding: 25px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* Main layout */
+    .container {
+      display: flex;
+      max-width: 1200px;
+      margin: 30px auto;
+    }
+
+    .wishlist-container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .wishlist-title {
+      text-align: center;
+      color: #2e7d32;
+    }
+
+    .wishlist-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .wishlist-card {
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .wishlist-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .wishlist-card h3 {
+      margin: 10px 0 5px;
+      font-size: 18px;
+    }
+
+    .wishlist-card p {
+      margin: 5px 0;
+      font-weight: bold;
+    }
+
+    .wishlist-card .action-btns {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .add-to-cart-btn, .buy-now-btn {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .add-to-cart-btn {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    .add-to-cart-btn:hover {
+      background-color: #45a049;
+    }
+
+    .buy-now-btn {
+      background-color: #fb641b;
+      color: white;
+    }
+
+    .buy-now-btn:hover {
+      background-color: #e65100;
+    }
+
+    .remove-btn {
+      margin-top: 10px;
+      background-color: #e53935;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .remove-btn:hover {
+      background-color: #c62828;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-brand">
+      <i class="fa-brands fa-canadian-maple-leaf"></i>
+      <span>GreenHaven</span>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">
+        <i class="fa-solid fa-user"></i> Account
+      </button>
+      <div class="dropdown-content">
+        <a href="main.html"><i class="fa-solid fa-id-badge"></i> Home</a>
+        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i> My Cart</a>
+        <a href="shop.html"><i class="fa-solid fa-store"></i> Store</a>
+        <a href="orders.html"><i class="fa-solid fa-box-open"></i> My Orders</a>
+        <a href="index.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wishlist-container">
+    <h1 class="wishlist-title">My Wishlist ❤️</h1>
+    <div class="wishlist-items" id="wishlistItems">
+      <!-- Wishlist items will be injected here -->
+    </div>
+  </div>
+
+  <script>
+    function loadWishlist() {
+      const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+      const container = document.getElementById('wishlistItems');
+      container.innerHTML = "";
+
+      if (wishlist.length === 0) {
+        container.innerHTML = "<p style='text-align:center;'>Your wishlist is empty.</p>";
+        return;
+      }
+
+      wishlist.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "wishlist-card";
+        card.innerHTML = `
+          <img src="${item.image}" alt="${item.name}">
+          <h3>${item.name}</h3>
+          <p>$${item.price}</p>
+          <div class="action-btns">
+            <button class="add-to-cart-btn" onclick="addToCart(${index})">Add to Cart</button>
+            <button class="buy-now-btn" onclick="buyNow(${index})">Buy Now</button>
+          </div>
+          <button class="remove-btn" onclick="removeFromWishlist(${index})">Remove</button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function removeFromWishlist(index) {
+      let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+      wishlist.splice(index, 1);
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+      loadWishlist();
+    }
+
+    function addToCart(index) {
+      let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      const item = wishlist[index];
+      const existingItem = cart.find(i => i.name === item.name);
+
+      if (existingItem) {
+        existingItem.quantity = (existingItem.quantity || 1) + 1;
+      } else {
+        cart.push({ ...item, quantity: 1 });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${item.name} added to cart!`);
+    }
+
+    function buyNow(index) {
+      let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      const item = wishlist[index];
+      const existingItem = cart.find(i => i.name === item.name);
+
+      if (existingItem) {
+        existingItem.quantity = (existingItem.quantity || 1) + 1;
+      } else {
+        cart.push({ ...item, quantity: 1 });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      window.location.href = "payment.html"; // Redirect to cart page
+    }
+
+    loadWishlist();
+  </script>
+
+</body>
+</html>

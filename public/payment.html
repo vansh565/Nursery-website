@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="UTF-8" />
+  <title>Payment - GreenHaven</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f2f4;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-brand {
+      font-size: 22px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-links a {
+      color: rgb(43, 37, 37);
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .nav-links a.active {
+      border-bottom: 2px solid rgb(48, 41, 41);
+    }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      margin-top: 20px;
+    }
+    .dropbtn {
+      background: none;
+      border: none;
+      color: black;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    .dropdown-content a {
+      color: black;
+      padding: 10px 15px;
+      text-decoration: none;
+      display: block;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    nav.navbar {
+      background-color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      margin: 30px 0 20px;
+    }
+    .container {
+      display: flex;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .cart-left {
+      flex: 3;
+      background-color: white;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .cart-section {
+      margin-bottom: 20px;
+    }
+    .cart-section h3 {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .cart-section label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    .cart-section input, .cart-section select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .cart-section .verify-btn {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .cart-section .verify-btn:hover {
+      background-color: #45a049;
+    }
+    .cart-right {
+      flex: 1;
+      background-color: white;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .cart-right h3 {
+      margin-bottom: 15px;
+      font-size: 18px;
+      color: #333;
+    }
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      font-size: 14px;
+      color: #555;
+    }
+    .total {
+      font-weight: bold;
+      border-top: 1px solid #ccc;
+      padding-top: 10px;
+      margin-top: 15px;
+      font-size: 16px;
+      color: #d32f2f;
+    }
+    .place-order-btn {
+      width: 100%;
+      background-color: #fb641b;
+      border: none;
+      color: white;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .place-order-btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    .place-order-btn:hover:not(:disabled) {
+      background-color: #e65100;
+    }
+    #loader {
+      display: none;
+      text-align: center;
+      margin-top: 15px;
+    }
+    #loader i {
+      font-size: 24px;
+      color: #fb641b;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    .cart-item img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <i class="fa-brands fa-canadian-maple-leaf"></i>
+      <span>GreenHaven</span>
+    </div>
+    <div class="nav-links">
+      <a href="main.html" class="active">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="#guide">Care Guide</a>
+      <a href="#about">About</a>
+      <a href="index4.html">Start</a>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn"><i class="fa-solid fa-bars"></i></button>
+      <div class="dropdown-content">
+        <a href="profile.html"><i class="fa-solid fa-id-card"></i> Profile Info</a>
+        <a href="orders.html"><i class="fa-solid fa-box"></i> My Orders</a>
+        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+        <a href="wishlist.html"><i class="fa-solid fa-heart"></i> Wishlist</a>
+        <a href="index.html"><i class="fa-solid fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <h1>🛒 Complete Your Order</h1>
+
+  <div class="container">
+    <div class="cart-left">
+      <div class="cart-section">
+        <h3>Address</h3>
+        <label for="address">Delivery Address:</label>
+        <input type="text" id="address" placeholder="Enter your address">
+      </div>
+      <div class="cart-section">
+        <h3>Email Verification</h3>
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" placeholder="Enter your email">
+        <button class="verify-btn" id="sendEmailOtpBtn">Send OTP</button>
+        <div id="otpSection" style="display: none;">
+          <label for="emailOtp">Enter Email OTP:</label>
+          <input type="text" id="emailOtp" placeholder="Enter OTP">
+          <button class="verify-btn" id="verifyEmailOtpBtn">Verify OTP</button>
+        </div>
+      </div>
+      <div class="cart-section">
+        <h3>Payment Options</h3>
+        <label for="paymentMethod">Select Payment Method:</label>
+        <select id="paymentMethod">
+          <option value="credit-card">Credit Card</option>
+          <option value="debit-card">Debit Card</option>
+          <option value="upi">UPI</option>
+          <option value="cash-on-delivery">Cash on Delivery</option>
+        </select>
+      </div>
+      <div class="cart-section">
+        <h3>Order Summary</h3>
+        <div id="cartItems"></div>
+        <p>Items: <span id="itemCount">0</span></p>
+        <p>Total: <span id="summaryTotal">₹0</span></p>
+      </div>
+    </div>
+    <div class="cart-right">
+      <h3>PRICE DETAILS</h3>
+      <div class="summary-line"><span>Price</span><span id="priceTotal">₹0</span></div>
+      <div class="summary-line"><span>Discount (68%)</span><span style="color:green;" id="discountAmt">− ₹0</span></div>
+      <div class="summary-line"><span>Delivery Fee</span><span id="deliveryFee">₹40</span></div>
+      <div class="summary-line total"><span>Total Amount</span><span id="finalTotal">₹0</span></div>
+      <div id="loader">
+        <i class="fa fa-spinner fa-spin"></i>
+        <p style="color:#666; font-size:14px;">Processing your order...</p>
+      </div>
+      <button class="place-order-btn" id="placeOrderBtn" disabled>PLACE ORDER</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const priceTotalEl = document.getElementById("priceTotal");
+      const discountAmtEl = document.getElementById("discountAmt");
+      const finalTotalEl = document.getElementById("finalTotal");
+      const placeOrderBtn = document.getElementById("placeOrderBtn");
+      const addressInput = document.getElementById("address");
+      const emailInput = document.getElementById("email");
+      const emailOtpInput = document.getElementById("emailOtp");
+      const sendEmailOtpBtn = document.getElementById("sendEmailOtpBtn");
+      const verifyEmailOtpBtn = document.getElementById("verifyEmailOtpBtn");
+      const paymentMethod = document.getElementById("paymentMethod");
+      const itemCountEl = document.getElementById("itemCount");
+      const summaryTotalEl = document.getElementById("summaryTotal");
+      const loader = document.getElementById("loader");
+      const cartItemsEl = document.getElementById("cartItems");
+      const otpSection = document.getElementById("otpSection");
+
+      let isEmailVerified = false;
+      let verifiedEmail = "";
+
+      // Load user data from localStorage
+      const orderData = JSON.parse(localStorage.getItem("pendingOrder")) || {};
+      const user = JSON.parse(localStorage.getItem("user")) || { userId: "guest", email: "" };
+
+      // Populate email input with user email if available
+      if (user.email) {
+        emailInput.value = user.email;
+      }
+
+      function loadCart() {
+        if (orderData.items && orderData.items.length) {
+          cartItemsEl.innerHTML = orderData.items.map(item => `
+            <div class="cart-item">
+              <img src="${item.image || 'https://via.placeholder.com/50'}" alt="${item.name}">
+              <div>
+                <p><strong>${item.name}</strong></p>
+                <p>₹${item.price} x ${item.quantity || 1}</p>
+              </div>
+            </div>
+          `).join("");
+
+          const totalPrice = orderData.totalPrice || 0;
+          const discount = orderData.discount || 0;
+          const finalAmount = orderData.finalAmount || 0;
+
+          itemCountEl.textContent = orderData.items.length;
+          summaryTotalEl.textContent = `₹${finalAmount.toFixed(2)}`;
+          priceTotalEl.textContent = `₹${totalPrice.toFixed(2)}`;
+          discountAmtEl.textContent = `− ₹${discount.toFixed(2)}`;
+          finalTotalEl.textContent = `₹${finalAmount.toFixed(2)}`;
+        } else {
+          cartItemsEl.innerHTML = "<p>No items in cart</p>";
+          itemCountEl.textContent = "0";
+          summaryTotalEl.textContent = "₹0";
+          priceTotalEl.textContent = "₹0";
+          discountAmtEl.textContent = "− ₹0";
+          finalTotalEl.textContent = "₹0";
+        }
+      }
+
+      // Enable/disable Place Order button based on verification
+      function updatePlaceOrderButton() {
+        placeOrderBtn.disabled = !isEmailVerified;
+      }
+
+      // Send Email OTP
+      sendEmailOtpBtn.onclick = () => {
+        const email = emailInput.value;
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          alert("Enter a valid email address.");
+          return;
+        }
+
+        sendEmailOtpBtn.disabled = true;
+        sendEmailOtpBtn.textContent = "Sending...";
+
+      fetch("https://new-plant-1.onrender.com/send-email-otp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              alert("OTP sent to your email!");
+              otpSection.style.display = "block";
+              emailInput.disabled = true;
+              sendEmailOtpBtn.style.display = "none";
+            } else {
+              alert(data.message);
+            }
+          })
+          .catch(err => {
+            console.error("Send email OTP error:", err);
+            alert("Error sending OTP.");
+          })
+          .finally(() => {
+            sendEmailOtpBtn.disabled = false;
+            sendEmailOtpBtn.textContent = "Send OTP";
+          });
+      };
+
+      // Verify Email OTP
+      verifyEmailOtpBtn.onclick = () => {
+        const email = emailInput.value;
+        const otp = emailOtpInput.value;
+
+        if (!otp) {
+          alert("Enter the OTP.");
+          return;
+        }
+
+        verifyEmailOtpBtn.disabled = true;
+        verifyEmailOtpBtn.textContent = "Verifying...";
+
+      fetch("https://new-plant-1.onrender.com/verify-email-otp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, otp })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              alert(data.message);
+              isEmailVerified = true;
+              verifiedEmail = email;
+              otpSection.style.display = "none";
+              emailInput.disabled = true;
+              verifyEmailOtpBtn.style.display = "none";
+              updatePlaceOrderButton();
+            } else {
+              alert(data.message);
+            }
+          })
+          .catch(err => {
+            console.error("Verify email OTP error:", err);
+            alert("Error verifying OTP.");
+          })
+          .finally(() => {
+            verifyEmailOtpBtn.disabled = false;
+            verifyEmailOtpBtn.textContent = "Verify OTP";
+          });
+      };
+
+      // Place Order
+      placeOrderBtn.onclick = () => {
+        if (!isEmailVerified) {
+          alert("Please verify your email before placing the order.");
+          return;
+        }
+
+        const address = addressInput.value;
+        const paymentMethodValue = paymentMethod.value;
+
+        if (!address) {
+          alert("Enter delivery address.");
+          return;
+        }
+
+        if (!orderData.items || !orderData.items.length) {
+          alert("Your cart is empty!");
+          return;
+        }
+
+        loader.style.display = "block";
+        placeOrderBtn.disabled = true;
+        placeOrderBtn.textContent = "Processing...";
+
+        const finalOrderData = {
+          ...orderData,
+          address,
+          paymentMethod: paymentMethodValue,
+          email: verifiedEmail,
+          userId: user.userId || "guest",
+          orderDate: new Date().toISOString(),
+        };
+
+       fetch("https://new-plant-1.onrender.com/orders", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(finalOrderData),
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              alert("✅ Order placed successfully!");
+              localStorage.setItem("orderPlaced", "true");
+              localStorage.removeItem("pendingOrder");
+              window.location.href = "cart.html";
+            } else {
+              alert(data.message);
+            }
+          })
+          .catch(err => {
+            console.error("Place order error:", err);
+            alert("Error placing order.");
+          })
+          .finally(() => {
+            loader.style.display = "none";
+            placeOrderBtn.disabled = !isEmailVerified;
+            placeOrderBtn.textContent = "PLACE ORDER";
+          });
+      };
+
+      loadCart();
+      updatePlaceOrderButton();
+    });
+  </script>
+</body>
+</html>

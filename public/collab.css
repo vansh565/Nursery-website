@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Button, Form, Input responsive */
+button, input, select {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  margin: 10px auto;
+}
+
+/* Flex layout for responsiveness */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.col {
+  flex: 1;
+  min-width: 250px;
+}
+
+/* Media Queries for small screens */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 20px;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  nav ul {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hide-on-mobile {
+    display: none;
+  }
+}

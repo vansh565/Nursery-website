@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../RV"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "RV"
+	}
+}

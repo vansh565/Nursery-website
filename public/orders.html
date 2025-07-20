@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="UTF-8" />
+  <title>My Orders - GreenHaven</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    nav.navbar {
+      background-color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .nav-brand {
+      font-size: 22px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+   .dropdown {
+  position: relative;
+  display: inline-block;
+  margin-top: 20px;
+  justify-content: center; /* ⬅️ adjust value as needed */
+}
+
+    .dropbtn {
+      background: none;
+      border: none;
+      color: black;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    .dropdown-content a {
+      color: black;
+      padding: 10px 15px;
+      text-decoration: none;
+      display: block;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    h1 {
+      text-align: center;
+      margin: 80px 0 30px;
+    }
+    .orders-container {
+      max-width: 900px;
+      margin: auto;
+      padding: 10px;
+    }
+    .order-card {
+  background-color: white;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 40px; /* 🟢 Add clean spacing between orders */
+}
+
+    
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 8px;
+    }
+    .item img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    .item-details {
+      flex: 1;
+    }
+    .status {
+      font-weight: bold;
+      color: green;
+      margin-top: 5px;
+    }
+    .empty-message {
+      text-align: center;
+      font-size: 18px;
+      color: #777;
+      margin-top: 50px;
+    }
+    .cancel-btn {
+      background-color: crimson;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      float: right;
+    }
+  </style>
+</head>
+<!-- Keep your current <head> and styles same as you posted -->
+
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <i class="fa-brands fa-canadian-maple-leaf"></i> GreenHaven
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn"><i class="fa-solid fa-bars"></i></button>
+      <div class="dropdown-content">
+         <a href="profile.html"><i class="fa-solid fa-id-card"></i> Profile Info</a>
+        <a href="shop.html"><i class="fa-solid fa-store"></i> Store</a>
+        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+        <a href="index.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <h1>📦 My Orders</h1>
+
+  <!-- ✅ Only ONE Remove All button -->
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button id="removeAllBtn" style="padding: 10px 18px; background-color: crimson; color: white; border: none; border-radius: 4px; cursor: pointer;">
+      🧹 Remove All Orders
+    </button>
+  </div>
+
+  <div class="orders-container" id="ordersList"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const ordersList = document.getElementById("ordersList");
+      const removeAllBtn = document.getElementById("removeAllBtn");
+
+      // ✅ Remove All Orders Logic
+      removeAllBtn.onclick = () => {
+        if (confirm("Are you sure you want to delete all orders?")) {
+          fetch("https://new-plant-1.onrender.com/orders", { method: "DELETE" })
+            .then(res => res.json())
+            .then(data => {
+              if (data.success) {
+                ordersList.innerHTML = "<p class='empty-message'>You haven't placed any orders yet.</p>";
+                alert("All orders removed successfully!");
+              } else {
+                alert("Failed to remove all orders.");
+              }
+            })
+            .catch(err => {
+              console.error(err);
+              alert("Error removing all orders.");
+            });
+        }
+      };
+
+      // ✅ Load and display orders
+   fetch("https://new-plant-1.onrender.com/orders")
+        .then(res => res.json())
+        .then(orders => {
+          if (!orders.length) {
+            ordersList.innerHTML = "<p class='empty-message'>You haven't placed any orders yet.</p>";
+            return;
+          }
+
+          ordersList.innerHTML = "";
+          orders.reverse().forEach(order => {
+            const deliveryDate = new Date(order.orderDate);
+            deliveryDate.setDate(deliveryDate.getDate() + 4);
+
+            const div = document.createElement("div");
+            div.className = "order-card";
+            div.dataset.orderId = order._id;
+
+            div.innerHTML = `
+              <div class="order-header">
+                <div><strong>Order ID:</strong> ${order._id}</div>
+                <div><strong>Date:</strong> ${new Date(order.orderDate).toLocaleDateString()}</div>
+              </div>
+              ${order.items.map(item => `
+                <div class="item">
+                  <img src="${item.image}" alt="${item.name}" />
+                  <div class="item-details">
+                    <div><strong>${item.name}</strong></div>
+                    <div>Price: ₹${item.price} × ${item.quantity}</div>
+                  </div>
+                </div>
+              `).join("")}
+              <div><strong>Total:</strong> ₹${order.finalAmount}</div>
+              <div class="status">📬 Will be delivered by: ${deliveryDate.toDateString()}</div>
+              <button class="cancel-btn">Cancel Order</button>
+            `;
+
+            // ✅ Cancel individual order
+            div.querySelector(".cancel-btn").onclick = () => {
+              if (!confirm("Are you sure you want to cancel this order?")) return;
+
+             fetch(`https://new-plant-1.onrender.com/orders/${order._id}`, {
+                method: "DELETE"
+              })
+              .then(res => res.json())
+              .then(result => {
+                if (result.success) {
+                  div.remove();
+                  if (!ordersList.hasChildNodes()) {
+                    ordersList.innerHTML = "<p class='empty-message'>You haven't placed any orders yet.</p>";
+                  }
+                } else {
+                  alert("Failed to cancel order.");
+                }
+              })
+              .catch(err => {
+                console.error(err);
+                alert("Error cancelling order.");
+              });
+            };
+
+            ordersList.appendChild(div);
+          });
+        })
+        .catch(err => {
+          ordersList.innerHTML = "<p class='empty-message'>Error loading orders.</p>";
+          console.error(err);
+        });
+    });
+  </script>
+</body>

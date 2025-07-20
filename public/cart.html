@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <meta charset="UTF-8" />
+    <title>My Cart - GreenHaven</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <style>
+        :root {
+            --primary: #2d6a4f;
+            --primary-light: #40916c;
+            --secondary: #95d5b2;
+            --accent: #d8f3dc;
+            --text: #1b4332;
+            --text-light: #2d6a4f;
+            --background: #f1f2f4;
+            --white: #ffffff;
+            --shadow: 0 4px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .navbar {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+        }
+
+        .nav-links a {
+            color: var(--text);
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            border-bottom: 2px solid var(--text);
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: var(--white);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 8px;
+        }
+
+        .dropdown-content a {
+            color: var(--text);
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--accent);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 80px 0 20px;
+            font-size: 2rem;
+            color: var(--text);
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .cart-left {
+            flex: 3;
+        }
+
+        .cart-item {
+            display: flex;
+            background-color: var(--white);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .cart-item img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+
+        .cart-details {
+            flex-grow: 1;
+        }
+
+        .cart-details h3 {
+            margin: 0;
+            font-size: 20px;
+            color: var(--text);
+        }
+
+        .price-line {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .discount {
+            color: var(--primary);
+            font-weight: bold;
+            margin-left: 8px;
+        }
+
+        .delivery {
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .buttons button {
+            background-color: transparent;
+            border: none;
+            color: var(--primary);
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .buttons button:hover {
+            color: var(--primary-light);
+        }
+
+        .quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .quantity button {
+            padding: 4px 10px;
+            font-size: 16px;
+            background-color: #e0e0e0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .quantity button:hover {
+            background-color: var(--secondary);
+        }
+
+        .qty {
+            font-weight: bold;
+        }
+
+        .cart-right {
+            flex: 1;
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            height: fit-content;
+        }
+
+        .cart-right h3 {
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .total {
+            font-weight: bold;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        .place-order-btn {
+            width: 100%;
+            background-color: var(--primary);
+            border: none;
+            color: var(--white);
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .place-order-btn:hover {
+            background-color: var(--primary-light);
+            transform: scale(1.05);
+        }
+
+        .empty-message {
+            text-align: center;
+            font-size: 18px;
+            color: #777;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .cart-item img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .cart-details h3 {
+                font-size: 18px;
+            }
+
+            .price-line {
+                font-size: 16px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .dropdown {
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fa-brands fa-canadian-maple-leaf"></i>
+            <span>GreenHaven</span>
+        </div>
+        <div class="nav-links">
+            <a href="main.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="#guide">Care Guide</a>
+            <a href="#about">About</a>
+            <a href="start.html">Start</a>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn"><i class="fa-solid fa-bars"></i></button>
+            <div class="dropdown-content">
+                <a href="profile.html"><i class="fa-solid fa-id-card"></i> Profile Info</a>
+                <a href="shop.html"><i class="fa-solid fa-store"></i> Store</a>
+                <a href="wishlist.html"><i class="fa-solid fa-heart"></i> Wishlist</a>
+                <a href="cart.html" class="active"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+                <a href="orders.html"><i class="fa-solid fa-box-open"></i> My Orders</a>
+                <a href="start.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <h1>🛒 Your Shopping Cart</h1>
+
+    <div class="container">
+        <div class="cart-left" id="cartItems"></div>
+        <div class="cart-right">
+            <h3>PRICE DETAILS</h3>
+            <div class="summary-line"><span>Price</span><span id="priceTotal">₹0</span></div>
+            <div class="summary-line"><span>Discount (68%)</span><span style="color: var(--primary);" id="discountAmt">− ₹0</span></div>
+            <div class="summary-line"><span>Delivery Fee</span><span id="deliveryFee">₹40</span></div>
+            <div class="summary-line total"><span>Total Amount</span><span id="finalTotal">₹0</span></div>
+            <button class="place-order-btn" id="placeOrderBtn">PLACE ORDER</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const cartDiv = document.getElementById("cartItems");
+            const priceTotalEl = document.getElementById("priceTotal");
+            const discountAmtEl = document.getElementById("discountAmt");
+            const finalTotalEl = document.getElementById("finalTotal");
+            const placeOrderBtn = document.getElementById("placeOrderBtn");
+
+            // Check if order was successfully placed
+            if (localStorage.getItem("orderPlaced") === "true") {
+                localStorage.removeItem("orderPlaced");
+                localStorage.removeItem("pendingOrder");
+                cartDiv.innerHTML = "<p class='empty-message'>🛒 Your cart is empty.</p>";
+                priceTotalEl.innerText = "₹0";
+                discountAmtEl.innerText = "− ₹0";
+                finalTotalEl.innerText = "₹0";
+                return;
+            }
+
+            function loadCart() {
+               fetch("https://new-plant-1.onrender.com/cart")
+                    .then(res => res.json())
+                    .then(result => {
+                        const items = result.items || result;
+
+                        if (!items.length) {
+                            cartDiv.innerHTML = "<p class='empty-message'>🛒 Your cart is empty.</p>";
+                            priceTotalEl.innerText = "₹0";
+                            discountAmtEl.innerText = "− ₹0";
+                            finalTotalEl.innerText = "₹0";
+                            return;
+                        }
+
+                        cartDiv.innerHTML = "";
+                        items.forEach(item => {
+                            let quantity = item.quantity || 1;
+                            const div = document.createElement("div");
+                            div.classList.add("cart-item");
+                            div.dataset.itemId = item._id;
+
+                            div.innerHTML = `
+                                <img src="${item.image}" alt="${item.name}">
+                                <div class="cart-details">
+                                    <h3>${item.name}</h3>
+                                    <div class="price-line">₹<span class="unit-price">${item.price}</span><span class="discount"> 68% Off</span></div>
+                                    <div class="delivery">Delivery by Sat Jul 5</div>
+                                    <div class="quantity">
+                                        <button class="decrease">−</button>
+                                        <span class="qty">${quantity}</span>
+                                        <button class="increase">+</button>
+                                    </div>
+                                    <div class="buttons">
+                                        <button class="save">SAVE FOR LATER</button>
+                                        <button class="remove">REMOVE</button>
+                                    </div>
+                                </div>
+                            `;
+
+                            const qtySpan = div.querySelector(".qty");
+                            const incBtn = div.querySelector(".increase");
+                            const decBtn = div.querySelector(".decrease");
+                            const removeBtn = div.querySelector(".remove");
+                            const saveBtn = div.querySelector(".save");
+
+                            incBtn.onclick = () => {
+                                quantity++;
+                                qtySpan.innerText = quantity;
+                                updatePrice();
+                                updateCartItem(item._id, quantity);
+                            };
+
+                            decBtn.onclick = () => {
+                                if (quantity > 1) {
+                                    quantity--;
+                                    qtySpan.innerText = quantity;
+                                    updatePrice();
+                                    updateCartItem(item._id, quantity);
+                                }
+                            };
+
+                            removeBtn.onclick = () => {
+                               fetch(`https://new-plant-1.onrender.com/cart/${item._id}`, { method: "DELETE" })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        if (data.success) {
+                                            div.remove();
+                                            updatePrice();
+                                            if (!document.querySelectorAll(".cart-item").length) {
+                                                cartDiv.innerHTML = "<p class='empty-message'>🛒 Your cart is empty.</p>";
+                                            }
+                                        }
+                                    })
+                                    .catch(err => {
+                                        alert("Error removing item from cart.");
+                                        console.error("Remove item error:", err);
+                                    });
+                            };
+
+                            saveBtn.onclick = () => {
+                                const user = JSON.parse(localStorage.getItem("user"));
+                                if (!user || !user.userId) {
+                                    alert("Please log in to save items to wishlist.");
+                                    window.location.href = "login.html";
+                                    return;
+                                }
+                               fetch("https://new-plant-1.onrender.com/wishlist", {
+                                    method: "POST",
+                                    headers: { "Content-Type": "application/json" },
+                                    body: JSON.stringify({
+                                        userId: user.userId,
+                                        itemId: item._id,
+                                        name: item.name,
+                                        price: item.price,
+                                        image: item.image
+                                    })
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        if (data.success) {
+                                            fetch(`https://new-plant-1.onrender.com/cart/${item._id}`, { method: "DELETE" })
+                                                .then(res => res.json())
+                                                .then(data => {
+                                                    if (data.success) {
+                                                        div.remove();
+                                                        updatePrice();
+                                                        alert("Item saved to wishlist!");
+                                                        if (!document.querySelectorAll(".cart-item").length) {
+                                                            cartDiv.innerHTML = "<p class='empty-message'>🛒 Your cart is empty.</p>";
+                                                        }
+                                                    }
+                                                });
+                                        }
+                                    })
+                                    .catch(err => {
+                                        alert("Error saving item to wishlist.");
+                                        console.error("Save to wishlist error:", err);
+                                    });
+                            };
+
+                            cartDiv.appendChild(div);
+                        });
+
+                        updatePrice();
+                    })
+                    .catch(err => {
+                        cartDiv.innerHTML = "<p class='empty-message'>Error loading cart.</p>";
+                        console.error("Load cart error:", err);
+                    });
+            }
+
+            function updateCartItem(itemId, quantity) {
+          fetch(`https://new-plant-1.onrender.com/cart/${itemId}`, {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ quantity }),
+                })
+                    .catch(err => {
+                        alert("Error updating cart item.");
+                        console.error("Update cart item error:", err);
+                    });
+            }
+
+            function updatePrice() {
+                const allItems = document.querySelectorAll(".cart-item");
+                let totalPrice = 0;
+
+                allItems.forEach(item => {
+                    const price = parseFloat(item.querySelector(".unit-price").textContent);
+                    const qty = parseInt(item.querySelector(".qty").textContent);
+                    totalPrice += price * qty;
+                });
+
+                const discount = totalPrice * 0.68;
+                const delivery = totalPrice > 0 ? 40 : 0;
+                const finalAmount = totalPrice - discount + delivery;
+
+                priceTotalEl.innerText = `₹${totalPrice.toFixed(2)}`;
+                discountAmtEl.innerText = `− ₹${discount.toFixed(2)}`;
+                finalTotalEl.innerText = `₹${finalAmount.toFixed(2)}`;
+            }
+
+            placeOrderBtn.onclick = () => {
+                const allItems = document.querySelectorAll(".cart-item");
+                if (!allItems.length) {
+                    alert("Your cart is empty!");
+                    return;
+                }
+
+                const user = JSON.parse(localStorage.getItem("user"));
+                if (!user || !user.userId || !user.email) {
+                    alert("Please log in to place an order.");
+                    window.location.href = "login.html";
+                    return;
+                }
+
+                const orderItems = Array.from(allItems).map(item => ({
+                    itemId: item.dataset.itemId,
+                    name: item.querySelector("h3").textContent,
+                    price: parseFloat(item.querySelector(".unit-price").textContent),
+                    quantity: parseInt(item.querySelector(".qty").textContent),
+                    image: item.querySelector("img").src,
+                }));
+
+                const totalPrice = parseFloat(priceTotalEl.textContent.replace("₹", ""));
+                const discount = parseFloat(discountAmtEl.textContent.replace("− ₹", ""));
+                const finalAmount = parseFloat(finalTotalEl.textContent.replace("₹", ""));
+
+                const orderData = {
+                    items: orderItems,
+                    totalPrice,
+                    discount,
+                    deliveryFee: totalPrice > 0 ? 40 : 0,
+                    finalAmount,
+                    userId: user.userId,
+                    email: user.email,
+                    orderDate: new Date().toISOString(),
+                };
+
+                localStorage.setItem("pendingOrder", JSON.stringify(orderData));
+                window.location.href = "payment.html";
+            };
+
+            loadCart();
+        });
+    </script>
+</body>
+</html>

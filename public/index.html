@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PLANTEN</title>
+  <link rel="stylesheet" href="start.css" />
+</head>
+<body>
+  <div class="main-container">
+    <h1>Welcome User</h1>
+    <h2>If you want to buy any nursery plant for your home</h2>
+
+    <!-- Initial Button -->
+    <button class="login-btn" id="showOptionsBtn">CLICK HERE</button>
+
+    <!-- Hidden Sign In/Sign Up Buttons -->
+    <div id="authOptions" style="display: none; margin-top: 20px;">
+      <button class="login-btn" id="signinBtn">Sign In</button>
+      <button class="login-btn" id="signupBtn">Sign Up</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("showOptionsBtn").addEventListener("click", function () {
+      document.getElementById("authOptions").style.display = "block";
+      document.getElementById("showOptionsBtn").style.display = "none";
+    });
+
+    document.getElementById("signinBtn").addEventListener("click", function () {
+      document.body.classList.add("fade-out");
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 1000);
+    });
+
+    document.getElementById("signupBtn").addEventListener("click", function () {
+      document.body.classList.add("fade-out");
+      setTimeout(() => {
+        window.location.href = "signup.html";
+      }, 1000);
+    });
+  </script>
+</body>
+</html>

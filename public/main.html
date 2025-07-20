@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GreenHaven Nursery</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script type="module" src="app.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f2f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Features Section */
+    .nav-brand {
+      font-size: 22px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-links a {
+      color: rgb(43, 37, 37);
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .nav-links a.active {
+      border-bottom: 2px solid rgb(48, 41, 41);
+    }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      margin-top: 20px;
+    }
+    .dropbtn {
+      background: none;
+      border: none;
+      color: black;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .box a:hover {
+  text-decoration: none;
+}
+.box a {
+  text-decoration: none;
+ 
+}
+.box1 a {
+  text-decoration: none;
+  color: inherit; /* Optional: makes link text match surrounding text */
+}
+
+.box1 a:hover {
+  text-decoration: none;
+}
+
+
+.box a:hover {
+  text-decoration: none;
+}
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    .dropdown-content a {
+      color: black;
+      padding: 10px 15px;
+      text-decoration: none;
+      display: block;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    nav.navbar {
+      background-color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <i class="fa-brands fa-canadian-maple-leaf"></i>
+      <span>GreenHaven</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="#guide">Care Guide</a>
+      <a href="#about">About</a>
+     
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn"><i class="fa-solid fa-bars"></i></button>
+      <div class="dropdown-content">
+        <a href="profile.html"><i class="fa-solid fa-id-card"></i> Profile Info</a>
+        <a href="shop.html"><i class="fa-solid fa-store"></i> Store</a>
+        <a href="wishlist.html"><i class="fa-solid fa-heart"></i> Wishlist</a>
+        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+        <a href="orders.html"><i class="fa-solid fa-box-open"></i> My Orders</a>
+        <a href="index.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Bring Nature Home</h1>
+      <p>Transform your space into a natural paradise with our carefully curated collection of plants.<br><br></p>
+      <a href="shop.html" class="cta-button">Explore more</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="features" class="features">
+      <h2>Featured Plants</h2>
+      <div class="box-container">
+        <div class="box">
+          <a href="product.html?id=1">
+            <img src="/images/3.avif" alt="Monstera Deliciosa" width="250">
+            <h3>Monstera Deliciosa</h3>
+          </a>
+          <a class="p">$45</a>
+          <p>Beautiful tropical plant with large leaves.</p><br>
+          <a href="product.html?id=1" class="button add-to-cart"
+            data-name="Monstera Deliciosa"
+            data-price="45"
+            data-image="/images/3.avif">Shop Now</a>
+            
+        </div>
+
+        <div class="box">
+          <a href="product.html?id=2">
+            <img src="/images/money plant.webp" alt="Money Plant" width="310">
+            <h3>Money Plant</h3>
+          </a>
+          <a class="p">$65</a>
+          <p>Known for good fortune and air purification.</p><br>
+          <a href="product.html?id=2" class="button add-to-cart"
+            data-name="Money Plant"
+            data-price="65"
+            data-image="/images/money plant.webp">Shop Now</a>
+        </div>
+
+        <div class="box">
+          <a href="product.html?id=3">
+            <img src="/images/happy.jpeg" alt="Happy Plant" width="310">
+            <h3>Happy Plant</h3>
+          </a>
+          <a class="p">$45</a>
+          <p>Low-maintenance plant perfect for indoors.</p><br>
+          <a href="product.html?id=3" class="button add-to-cart"
+            data-name="Happy Plant"
+            data-price="45"
+            data-image="/images/happy.jpeg">Shop Now</a>
+        </div>
+      </div>
+    </section>
+
+    <h2 style="text-align: center;">Trending Plants</h2><br>
+    <section id="trending" class="trending">
+      <div class="shop-section">
+        <div class="box1">
+          <a href="product.html?id=4">
+            <h2>Spider Plant</h2>
+            <div class="box-img" style="background-image: url('/images/spider.jpeg');"></div>
+          </a>
+          $22<br>
+           <p>Bringing nature's beauty .</p>
+       
+        </div>
+
+        <div class="box1">
+          <a href="product.html?id=5">
+            <h2>Snake Plant</h2>
+            <div class="box-img" style="background-image: url('/images/snake.avif');"></div>
+          </a>
+          $19<br>
+          <p>Bringing nature's beauty .</p>
+        
+        </div>
+
+        <div class="box1">
+          <a href="product.html?id=6">
+            <h2>Pandanus Plant</h2>
+            <div class="box-img" style="background-image: url('/images/pandous.jpeg');"></div>
+          </a>
+          $15<br>
+          <p>Bringing nature's beauty.</p>
+         
+        </div>
+
+        <div class="box1">
+          <a href="product.html?id=7">
+            <h2>Rhoeo Plant</h2>
+            <div class="box-img" style="background-image: url('/images/rheoo.jpeg');"></div>
+          </a>
+          $25<br>
+           <p>Bringing nature's beauty .</p>
+         
+        </div>
+
+        <div class="box1">
+          <a href="product.html?id=8">
+            <h2>Jade Plant</h2>
+            <div class="box-img" style="background-image: url('/images/jade.webp');"></div>
+          </a>
+          $22<br>
+           <p>Bringing nature's beauty .</p>
+        
+        </div>
+
+        <div class="box1">
+          <a href="product.html?id=9">
+            <h2>Aloe Vera Plant</h2>
+            <div class="box-img" style="background-image: url('/images/alovera.jpeg');"></div>
+          </a>
+          $19<br>
+           <p>Bringing nature's beauty .</p>
+         
+        </div>
+
+        <div class="box1">
+          <a href="product.html?id=15">
+            <h2>Areca Palm Plant</h2>
+            <div class="box-img1" style="background-image: url('/images/palm.avif');"></div>
+          </a>
+          $15<br>
+           <p>Bringing nature's beauty .</p>
+         
+        </div>
+
+        <div class="box1">
+          <a href="product.html?id=11">
+            <h2>Coleus Plant</h2>
+            <div class="box-img1" style="background-image: url('/images/coleus.jpeg');"></div>
+          </a>
+          $25<br>
+           <p>Bringing nature's beauty .</p>
+    
+        </div>
+      </div>
+    </section>
+
+    <section class="benefits">
+      <h2>Why Choose GreenHaven?</h2>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <i class="fa-solid fa-hand-holding-hand"></i>
+          <h3>Expert Care</h3>
+          <p>Professionally nurtured plants for your home</p>
+        </div>
+        <div class="benefit-card">
+          <i class="fa-solid fa-sun"></i>
+          <h3>Growth Guidance</h3>
+          <p>Detailed care instructions for every plant</p>
+        </div>
+        <div class="benefit-card">
+          <i class="fa-regular fa-circle-check"></i>
+          <h3>Plant Guarantee</h3>
+          <p>30-day happiness guarantee on all plants</p>
+        </div>
+        <div class="benefit-card">
+          <i class="fa-solid fa-medal"></i>
+          <h3>Premium Quality</h3>
+          <p>Highest quality plants and supplies</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div class="newsletter-content">
+        <h2>Join Our Green Community</h2>
+        <p>Subscribe for care tips, exclusive offers, and plant inspiration</p>
+        <form id="newsletterForm" class="newsletter-form">
+          <input type="email" placeholder="Enter your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="footer-brand">
+          <i data-lucide="leaf"></i>
+          <span>GreenHaven</span>
+        </div>
+        <p>Bringing nature's beauty to your doorstep since 1990.</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#care">Plant Care</a></li>
+          <li><a href="#shipping">Shipping</a></li>
+          <li><a href="#faq">FAQs</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <ul>
+          <li><i data-lucide="phone"></i> 8082840158</li>
+          <li><i data-lucide="mail"></i> vansh565.sharma@greenhaven.com</li>
+          <li><i data-lucide="map-pin"></i> 123 Garden Street</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> GreenHaven Nursery. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <style>
+    body {
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+
+  <script src=""></script>
+</body>
+</html>

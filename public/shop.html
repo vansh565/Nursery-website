@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GreenHaven Nursery</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --primary: #2d6a4f;
+      --primary-light: #40916c;
+      --secondary: #95d5b2;
+      --accent: #d8f3dc;
+      --text: #1b4332;
+      --text-light: #2d6a4f;
+      --background: #f8f9fa;
+      --white: #ffffff;
+      --shadow: 0 4px 3px rgba(0, 0, 0, 0.1);
+      --box-shadow: 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--background);
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Navigation */
+    .navbar {
+      background: var(--white);
+      box-shadow: var(--shadow);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgb(237, 255, 237);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .search-bar {
+      flex: 1;
+      text-align: center;
+      margin: 0 1rem;
+    }
+
+    .search-bar input {
+      width: 60%;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropbtn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 16px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: #ffffff;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+      border-radius: 8px;
+      padding: 10px 0;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content a {
+      color: #13241e;
+      padding: 10px 16px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background-color 0.3s;
+      font-weight: 500;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #e8f5e9;
+    }
+
+    .fa-solid, .fa-regular {
+      font-size: 1.2rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0;
+      margin-top: 4rem;
+      position: relative;
+      cursor: pointer;
+      background-color: #f0f0f0;
+      width: 100vw;
+    }
+
+    .hero-image-container {
+      height: 50vh;
+      width: 100%;
+      max-width: 1550px;
+      background-size: center;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: background-image 1s ease-in-out;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 100vw;
+      position: absolute;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-content * {
+      pointer-events: auto;
+    }
+
+    #hero-clickable-image {
+      opacity: 0;
+      position: absolute;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 0 0 2rem 0;
+      width: 100%;
+      margin: 0;
+      position: relative;
+    }
+
+    .features h2 {
+      text-align: center;
+      margin: 30px 0;
+      color: var(--text);
+    }
+
+    .box1 a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .box1 a:hover {
+      text-decoration: none;
+    }
+
+    .box a {
+      text-decoration: none;
+      color: inherit;
+      display: inline-block;
+    }
+
+    .box a h3 {
+      margin: 0.5rem 0 0;
+    }
+
+    .box-container {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      gap: 35px;
+      padding: 1rem 0;
+      scrollbar-width: thin;
+      width: 100%;
+    }
+
+    .box-container::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .box-container::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+
+    .box {
+      flex: 0 0 250px;
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 1rem 1rem 1rem 1rem rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .box:hover {
+      box-shadow: 1px 1px 10px 4px var(--text);
+    }
+
+    .box img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .box h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .box .p {
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .button {
+      text-decoration: none;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 15px;
+      background-color: #c7cdca;
+      color: #000000;
+      border-radius: 3px;
+      cursor: pointer;
+      border: none;
+      padding: 4px 20px;
+      display: inline-block;
+    }
+
+    .button:hover {
+      background-color: #82938b;
+    }
+
+    .box .fa-heart {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 24px;
+      color: gray;
+      cursor: pointer;
+    }
+
+    .box .fa-heart:hover {
+      color: var(--primary);
+    }
+
+    .scroll-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 24px;
+      border-radius: 50%;
+    }
+
+    .scroll-arrow.left {
+      left: 10px;
+    }
+
+    .scroll-arrow.right {
+      right: 10px;
+    }
+
+    /* Shop Section */
+    .shop-section {
+      width: 100%;
+      margin: 0;
+    }
+
+    .shop-section h2 {
+      text-align: center;
+      margin: 20px 0;
+      color: var(--text);
+    }
+
+    .shop-container {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      gap: 16px;
+      background: #e2e7e6;
+      padding: 1rem 0;
+      scrollbar-width: thin;
+      width: 100%;
+    }
+
+    .shop-container::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .shop-container::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+
+    .box1 {
+      flex: 0 0 250px;
+      height: 400px;
+      background-color: white;
+      padding: 20px;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 1rem 1rem 1rem 1rem rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .box1:hover {
+      box-shadow: 1px 1px 10px 4px var(--text);
+    }
+
+    .box-img {
+      width: 100%;
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      border-bottom: 1px solid #ddd;
+      margin: 0 auto 15px;
+    }
+
+    .box1 h2 {
+      font-size: 18px;
+      margin: 15px 0;
+      color: #333;
+    }
+
+    .box1 p {
+      margin: 8px;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .box1 .fa-heart {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 24px;
+      color: gray;
+      cursor: pointer;
+    }
+
+    .box1 .fa-heart:hover {
+      color: var(--primary);
+    }
+
+    /* Benefits Section */
+    .benefits {
+      background: var(--accent);
+      padding: 4rem 2rem;
+    }
+
+    .benefits h2 {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .benefits-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .benefit-card {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .benefit-card i {
+      color: var(--primary);
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Newsletter Section */
+    .newsletter {
+      background: var(--primary);
+      color: var(--white);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .imgg {
+      object-fit: cover;
+    }
+
+    .newsletter-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 4px;
+    }
+
+    .newsletter-form button {
+      padding: 0.8rem 2rem;
+      background: var(--text);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .newsletter-form button:hover {
+      background: var(--text-light);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--text);
+      color: var(--white);
+      padding: 4rem 2rem 2rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 1rem;
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-section a {
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .search-bar {
+        margin: 10px 0;
+        width: 100%;
+      }
+
+      .search-bar input {
+        width: 100%;
+      }
+
+      .dropdown {
+        margin-top: 10px;
+      }
+
+      .hero {
+        height: 40vh;
+        margin-top: 4rem;
+      }
+
+      .hero-image-container {
+        height: 40vh;
+        width: 100vw;
+        background-size: 100% 100%;
+      }
+
+      .hero h1 {
+        font-size: 5.5rem;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <i class="fa-brands fa-canadian-maple-leaf"></i>
+        <span>GreenHaven</span>
+      </div>
+      
+      <div class="search-bar">
+        <input type="text" placeholder="Search plants..." id="searchInput" />
+      </div>
+      <div class="dropdown">
+        <button class="dropbtn">
+          <i class="fa-solid fa-user"></i> Account
+        </button>
+        <div class="dropdown-content">
+          <a href="profile.html"><i class="fa-solid fa-id-badge"></i> Profile</a>
+          <a href="main.html"><i class="fa-solid fa-house"></i> Home</a>
+          <a href="more.html"><i class="fa-solid fa-boxes-stacked"></i> More Product</a>
+          <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i> My Cart</a>
+          <a href="wishlist.html"><i class="fa-solid fa-store"></i> Wishlist</a>
+          <a href="orders.html"><i class="fa-solid fa-box-open"></i> My Orders</a>
+          <a href="index.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="hero">
+    <div class="hero-image-container" id="hero-image-container"></div>
+    <div class="hero-content">
+      <h1></h1>
+      <h2></h2>
+      <img id="hero-clickable-image" class="imgg" src="" alt="Hero Image" style="opacity: 0; position: absolute; pointer-events: none;">
+    </div>
+  </header>
+
+  <main>
+    <section id="features" class="features">
+      <h2>Featured Plants</h2>
+      <button class="scroll-arrow left" data-target="features-container"><i class="fa-solid fa-chevron-left"></i></button>
+      <div class="box-container" id="features-container">
+        <div class="box">
+          <a href="product.html?id=1">
+            <img src="/images/3.avif" alt="Monstera Deliciosa" class="plant-image">
+            <h3>Monstera Deliciosa</h3>
+          </a>
+          <p class="p">Price: &#8377;45</p>
+          <p>Beautiful tropical plant with large leaves.</p>
+          <a href="#" class="button add-to-cart" data-name="Monstera Deliciosa" data-price="45" data-image="/images/3.avif">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Monstera Deliciosa', 45, '/images/3.avif')"></i>
+        </div>
+        <div class="box">
+          <a href="product.html?id=2">
+            <img src="/images/money plant.webp" alt="Money Plant" class="plant-image">
+            <h3>Money Plant</h3>
+          </a>
+          <p class="p">$65</p>
+          <p>Known for good fortune and air purification.</p>
+          <a href="#" class="button add-to-cart" data-name="Money Plant" data-price="65" data-image="/images/money plant.webp">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Money Plant', 65, '/images/money plant.webp')"></i>
+        </div>
+        <div class="box">
+          <a href="product.html?id=3">
+            <img src="/images/happy.jpeg" alt="Happy Plant" class="plant-image">
+            <h3>Happy Plant</h3>
+          </a>
+          <p class="p">$45</p>
+          <p>Low-maintenance plant perfect for indoors.</p>
+          <a href="#" class="button add-to-cart" data-name="Happy Plant" data-price="45" data-image="/images/happy.jpeg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Happy Plant', 45, '/images/happy.jpeg')"></i>
+        </div>
+        <div class="box">
+          <a href="product.html?id=4">
+            <img src="/images/spider.jpeg" alt="Spider Plant" class="plant-image">
+            <h3>Spider Plant</h3>
+          </a>
+          <p class="p">$22</p>
+          <p>Easy-to-grow plant with arching leaves.</p>
+          <a href="#" class="button add-to-cart" data-name="Spider Plant" data-price="22" data-image="/images/spider.jpeg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Spider Plant', 22, '/images/spider.jpeg')"></i>
+        </div>
+        <div class="box">
+          <a href="product.html?id=5">
+            <img src="/images/snake.avif" alt="Snake Plant" class="plant-image">
+            <h3>Snake Plant</h3>
+          </a>
+          <p class="p">$19</p>
+          <p>Hardy plant with upright leaves, great for beginners.</p>
+          <a href="#" class="button add-to-cart" data-name="Snake Plant" data-price="19" data-image="/images/snake.avif">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Snake Plant', 19, '/images/snake.avif')"></i>
+        </div>
+        <div class="box">
+          <a href="product.html?id=6">
+            <img src="/images/pandous.jpeg" alt="Pandanus Plant" class="plant-image">
+            <h3>Pandanus Plant</h3>
+          </a>
+          <p class="p">$15</p>
+          <p>Tropical plant with spiky, green leaves.</p>
+          <a href="#" class="button add-to-cart" data-name="Pandanus Plant" data-price="15" data-image="/images/pandous.jpeg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Pandanus Plant', 15, '/images/pandous.jpeg')"></i>
+        </div>
+        <div class="box">
+          <a href="product.html?id=7">
+            <img src="/images/rheoo.jpeg" alt="Rhoeo Plant" class="plant-image">
+            <h3>Rhoeo Plant</h3>
+          </a>
+          <p class="p">$25</p>
+          <p>Colorful foliage with purple undersides.</p>
+          <a href="#" class="button add-to-cart" data-name="Rhoeo Plant" data-price="25" data-image="/images/rheoo.jpeg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Rhoeo Plant', 25, '/images/rheoo.jpeg')"></i>
+        </div>
+        <div class="box">
+          <a href="product.html?id=8">
+            <img src="/images/jade.webp" alt="Jade Plant" class="plant-image">
+            <h3>Jade Plant</h3>
+          </a>
+          <p class="p">$22</p>
+          <p>Succulent with thick, glossy leaves.</p>
+          <a href="#" class="button add-to-cart" data-name="Jade Plant" data-price="22" data-image="/images/jade.webp">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Jade Plant', 22, '/images/jade.webp')"></i>
+        </div>
+        <div class="box">
+          <a href="product.html?id=9">
+            <img src="/images/alovera.jpeg" alt="Aloe Vera Plant" class="plant-image">
+            <h3>Aloe Vera Plant</h3>
+          </a>
+          <p class="p">$19</p>
+          <p>Medicinal succulent with soothing gel.</p>
+          <a href="#" class="button add-to-cart" data-name="Aloe Vera Plant" data-price="19" data-image="/images/alovera.jpeg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Aloe Vera Plant', 19, '/images/alovera.jpeg')"></i>
+        </div>
+        <div class="box">
+          <a href="product.html?id=10">
+            <img src="/images/palm.avif" alt="Areca Palm Plant" class="plant-image">
+            <h3>Areca Palm Plant</h3>
+          </a>
+          <p class="p">$15</p>
+          <p>Elegant palm for bright indoor spaces.</p>
+          <a href="#" class="button add-to-cart" data-name="Areca Palm Plant" data-price="15" data-image="/images/palm.avif">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Areca Palm Plant', 15, '/images/palm.avif')"></i>
+        </div>
+      </div>
+      <button class="scroll-arrow right" data-target="features-container"><i class="fa-solid fa-chevron-right"></i></button>
+    </section>
+
+    <section id="shop" class="shop-section">
+      <h2>All Plants</h2>
+      <div class="shop-container" id="shop-container">
+        <div class="box1">
+          <a href="product.html?id=11">
+            <h2>Coleus Plant</h2>
+            <div class="box-img" style="background-image: url('/images/coleus.jpeg');"></div>
+          </a>
+          <p>$25</p>
+          <a href="#" class="button add-to-cart" data-name="Coleus Plant" data-price="25" data-image="/images/coleus.jpeg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Coleus Plant', 25, '/images/coleus.jpeg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=12">
+            <h2>Peace Lily</h2>
+            <div class="box-img" style="background-image: url('/images/peachlily.webp');"></div>
+          </a>
+          <p>$30</p>
+          <a href="#" class="button add-to-cart" data-name="Peace Lily" data-price="30" data-image="/images/peachlily.webp">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Peace Lily', 30, '/images/peachlily.webp')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=13">
+            <h2>Fiddle Leaf Fig</h2>
+            <div class="box-img" style="background-image: url('/images/fiddleleaf.jpg');"></div>
+          </a>
+          <p>$50</p>
+          <a href="#" class="button add-to-cart" data-name="Fiddle Leaf Fig" data-price="50" data-image="/images/fiddleleaf.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Fiddle Leaf Fig', 50, '/images/fiddleleaf.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=14">
+            <h2>ZZ Plant</h2>
+            <div class="box-img" style="background-image: url('/images/ZZ.webp');"></div>
+          </a>
+          <p>$25</p>
+          <a href="#" class="button add-to-cart" data-name="ZZ Plant" data-price="25" data-image="/images/ZZ.webp">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('ZZ Plant', 25, '/images/ZZ.webp')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=15">
+            <h2>Boston Fern</h2>
+            <div class="box-img" style="background-image: url('/images/bostonfern.jpg');"></div>
+          </a>
+          <p>$35</p>
+          <a href="#" class="button add-to-cart" data-name="Boston Fern" data-price="35" data-image="/images/bostonfern.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Boston Fern', 35, '/images/bostonfern.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=16">
+            <h2>Rubber Plant</h2>
+            <div class="box-img" style="background-image: url('/images/rubberplant.webp');"></div>
+          </a>
+          <p>$40</p>
+          <a href="#" class="button add-to-cart" data-name="Rubber Plant" data-price="40" data-image="/images/rubberplant.webp">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Rubber Plant', 40, '/images/rubberplant.webp')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=17">
+            <h2>Calathea</h2>
+            <div class="box-img" style="background-image: url('/images/Calathea.webp');"></div>
+          </a>
+          <p>$28</p>
+          <a href="#" class="button add-to-cart" data-name="Calathea" data-price="28" data-image="/images/Calathea.webp">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Calathea', 28, '/images/Calathea.webp')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=18">
+            <h2>Philodendron</h2>
+            <div class="box-img" style="background-image: url('/images/Philo.webp');"></div>
+          </a>
+          <p>$35</p>
+          <a href="#" class="button add-to-cart" data-name="Philodendron" data-price="35" data-image="/images/Philo.webp">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Philodendron', 35, '/images/Philo.webp')"></i>
+        </div>
+      </div>
+    </section>
+
+    <section id="shop" class="shop-section">
+      <h2>All Plants</h2>
+      <div class="shop-container" id="shop-container2">
+        <div class="box1">
+          <a href="product.html?id=19">
+            <h2>Pothos</h2>
+            <div class="box-img" style="background-image: url('/images/Phothos.webp');"></div>
+          </a>
+          <p>$20</p>
+          <a href="#" class="button add-to-cart" data-name="Pothos" data-price="20" data-image="/images/Phothos.webp">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Pothos', 20, '/images/Phothos.webp')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=20">
+            <h2>Croton</h2>
+            <div class="box-img" style="background-image: url('/images/Croton.jpg');"></div>
+          </a>
+          <p>$30</p>
+          <a href="#" class="button add-to-cart" data-name="Croton" data-price="30" data-image="/images/Croton.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Croton', 30, '/images/Croton.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=21">
+            <h2>Dracaena</h2>
+            <div class="box-img" style="background-image: url('/images/Dracarna.webp');"></div>
+          </a>
+          <p>$38</p>
+          <a href="#" class="button add-to-cart" data-name="Dracaena" data-price="38" data-image="/images/dracaena.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Dracaena', 38, '/images/dracaena.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=22">
+            <h2>Anthurium</h2>
+            <div class="box-img" style="background-image: url('/images/Anthurium.webp');"></div>
+          </a>
+          <p>$32</p>
+          <a href="#" class="button add-to-cart" data-name="Anthurium" data-price="32" data-image="/images/.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Anthurium', 32, '/images/Anthurium.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=23">
+            <h2>Bamboo Palm</h2>
+            <div class="box-img" style="background-image: url('/images/Bamboo.jpg');"></div>
+          </a>
+          <p>$42</p>
+          <a href="#" class="button add-to-cart" data-name="Bamboo Palm" data-price="42" data-image="/images/bamboopalm.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Bamboo Palm', 42, '/images/bamboopalm.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=24">
+            <h2>Parlor Palm</h2>
+            <div class="box-img" style="background-image: url('/images/parlour.webp');"></div>
+          </a>
+          <p>$28</p>
+          <a href="#" class="button add-to-cart" data-name="Parlor Palm" data-price="28" data-image="/images/parlorpalm.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Parlor Palm', 28, '/images/parlorpalm.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=25">
+            <h2>Aglaonema</h2>
+            <div class="box-img" style="background-image: url('/images/anglonema.webp');"></div>
+          </a>
+          <p>$27</p>
+          <a href="#" class="button add-to-cart" data-name="Aglaonema" data-price="27" data-image="/images/aglaonema.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Aglaonema', 27, '/images/aglaonema.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=26">
+            <h2>Yucca Plant</h2>
+            <div class="box-img" style="background-image: url('/images/yucca.webp');"></div>
+          </a>
+          <p>$35</p>
+          <a href="#" class="button add-to-cart" data-name="Yucca Plant" data-price="35" data-image="/images/yucca.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Yucca Plant', 35, '/images/yucca.jpg')"></i>
+        </div>
+      </div>
+    </section>
+
+    <section id="shop2" class="shop-section">
+      <h2>All Plants</h2>
+      <div class="shop-container" id="shop-container3">
+        <div class="box1">
+          <a href="product.html?id=27">
+            <h2>Bird of Paradise</h2>
+            <div class="box-img" style="background-image: url('/images/bird\ of\ paradise.jpg');"></div>
+          </a>
+          <p>$55</p>
+          <a href="#" class="button add-to-cart" data-name="Bird of Paradise" data-price="55" data-image="/images/birdofparadise.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Bird of Paradise', 55, '/images/birdofparadise.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=28">
+            <h2>English Ivy</h2>
+            <div class="box-img" style="background-image: url('/images/english\ ivy.webp');"></div>
+          </a>
+          <p>$18</p>
+          <a href="#" class="button add-to-cart" data-name="English Ivy" data-price="18" data-image="/images/englishivy.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('English Ivy', 18, '/images/englishivy.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=29">
+            <h2>Hoya Plant</h2>
+            <div class="box-img" style="background-image: url('/images/hoya.jpg');"></div>
+          </a>
+          <p>$30</p>
+          <a href="#" class="button add-to-cart" data-name="Hoya Plant" data-price="30" data-image="/images/hoya.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Hoya Plant', 30, '/images/hoya.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=30">
+            <h2>Cast Iron Plant</h2>
+            <div class="box-img" style="background-image: url('/images/cast.webp');"></div>
+          </a>
+          <p>$25</p>
+          <a href="#" class="button add-to-cart" data-name="Cast Iron Plant" data-price="25" data-image="/images/castiron.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Cast Iron Plant', 25, '/images/castiron.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=31">
+            <h2>Dieffenbachia</h2>
+            <div class="box-img" style="background-image: url('/images/def.jpg');"></div>
+          </a>
+          <p>$28</p>
+          <a href="#" class="button add-to-cart" data-name="Dieffenbachia" data-price="28" data-image="/images/dieffenbachia.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Dieffenbachia', 28, '/images/dieffenbachia.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=32">
+            <h2>Chinese Evergreen</h2>
+            <div class="box-img" style="background-image: url('/images/chinese.webp');"></div>
+          </a>
+          <p>$26</p>
+          <a href="#" class="button add-to-cart" data-name="Chinese Evergreen" data-price="26" data-image="/images/chineseevergreen.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Chinese Evergreen', 26, '/images/chineseevergreen.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=33">
+            <h2>String of Pearls</h2>
+            <div class="box-img" style="background-image: url('/images/string.jpg');"></div>
+          </a>
+          <p>$22</p>
+          <a href="#" class="button add-to-cart" data-name="String of Pearls" data-price="22" data-image="/images/stringofpearls.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('String of Pearls', 22, '/images/stringofpearls.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=34">
+            <h2>Fittonia</h2>
+            <div class="box-img" style="background-image: url('/images/fit.webp');"></div>
+          </a>
+          <p>$20</p>
+          <a href="#" class="button add-to-cart" data-name="Fittonia" data-price="20" data-image="/images/fittonia.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Fittonia', 20, '/images/fittonia.jpg')"></i>
+        </div>
+      </div>
+    </section>
+
+    <section id="shop3" class="shop-section">
+      <h2>All Plants</h2>
+      <div class="shop-container" id="shop-container4">
+        <div class="box1">
+          <a href="product.html?id=35">
+            <h2>African Violet</h2>
+            <div class="box-img" style="background-image: url('/images/african.webp');"></div>
+          </a>
+          <p>$18</p>
+          <a href="#" class="button add-to-cart" data-name="African Violet" data-price="18" data-image="/images/africanviolet.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('African Violet', 18, '/images/africanviolet.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=36">
+            <h2>Peperomia</h2>
+            <div class="box-img" style="background-image: url('/images/peper.webp');"></div>
+          </a>
+          <p>$24</p>
+          <a href="#" class="button add-to-cart" data-name="Peperomia" data-price="24" data-image="/images/peperomia.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Peperomia', 24, '/images/peperomia.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=37">
+            <h2>Kalanchoe</h2>
+            <div class="box-img" style="background-image: url('/images/kalan.jpg');"></div>
+          </a>
+          <p>$20</p>
+          <a href="#" class="button add-to-cart" data-name="Kalanchoe" data-price="20" data-image="/images/kalanchoe.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Kalanchoe', 20, '/images/kalanchoe.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=38">
+            <h2>Spathiphyllum</h2>
+            <div class="box-img" style="background-image: url('/images/spe.webp');"></div>
+          </a>
+          <p>$32</p>
+          <a href="#" class="button add-to-cart" data-name="Spathiphyllum" data-price="32" data-image="/images/spathiphyllum.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Spathiphyllum', 32, '/images/spathiphyllum.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=39">
+            <h2>Schefflera</h2>
+            <div class="box-img" style="background-image: url('/images/schef.webp');"></div>
+          </a>
+          <p>$35</p>
+          <a href="#" class="button add-to-cart" data-name="Schefflera" data-price="35" data-image="/images/schef.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Schefflera', 35, '/images/schefflera.jpg')"></i>
+        </div>
+        <div class="box1">
+          <a href="product.html?id=40">
+            <h2>Maranta</h2>
+            <div class="box-img" style="background-image: url('/images/maranta.webp');"></div>
+          </a>
+          <p>$28</p>
+          <a href="#" class="button add-to-cart" data-name="Maranta" data-price="28" data-image="/images/maranta.jpg">Add to Cart</a>
+          <i class="fa-solid fa-heart" onclick="addToWishlist('Maranta', 28, '/images/maranta.jpg')"></i>
+        </div>
+      </div>
+    </section>
+
+    <section class="benefits">
+      <h2>Why Choose GreenHaven?</h2>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <i class="fa-solid fa-hand-holding-hand"></i>
+          <h3>Expert Care</h3>
+          <p>Professionally nurtured plants for your home</p>
+        </div>
+        <div class="benefit-card">
+          <i class="fa-solid fa-sun"></i>
+          <h3>Growth Guidance</h3>
+          <p>Detailed care instructions for every plant</p>
+        </div>
+        <div class="benefit-card">
+          <i class="fa-regular fa-circle-check"></i>
+          <h3>Plant Guarantee</h3>
+          <p>30-day happiness guarantee on all plants</p>
+        </div>
+        <div class="benefit-card">
+          <i class="fa-solid fa-medal"></i>
+          <h3>Premium Quality</h3>
+          <p>Highest quality plants and supplies</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div class="newsletter-content">
+        <h2>Join Our Green Community</h2>
+        <p>Subscribe for care tips, exclusive offers, and plant inspiration</p>
+        <form id="newsletterForm" class="newsletter-form">
+          <input type="email" placeholder="Enter your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="footer-brand">
+          <i data-lucide="leaf"></i>
+          <span>GreenHaven</span>
+        </div>
+        <p>Bringing nature's beauty to your doorstep since 1990.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#care">Plant Care</a></li>
+          <li><a href="#shipping">Shipping</a></li>
+          <li><a href="#faq">FAQs</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <ul>
+          <li><i data-lucide="phone"></i> 8082840158</li>
+          <li><i data-lucide="mail"></i> vansh565.sharma@greenhaven.com</li>
+          <li><i data-lucide="map-pin"></i> 123 Garden Street</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> GreenHaven Nursery. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Set current year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Hero section slideshow
+    const heroImages = [
+      'https://rukminim2.flixcart.com/fk-p-flap/2020/340/image/2ad9256d47bff7ca.jpg?q=60',
+      'https://rukminim2.flixcart.com/fk-p-flap/2020/340/image/1338bd4fc60390d8.jpg?q=60',
+      'https://rukminim2.flixcart.com/fk-p-flap/2020/340/image/940ba54cb371686a.jpg?q=60',
+      'https://rukminim2.flixcart.com/fk-p-flap/960/160/image/14eb0fb178248c58.jpg?q=60',
+      'https://rukminim2.flixcart.com/fk-p-flap/960/160/image/14eb0fb178248c58.jpg?q=60'
+    ];
+    const heroLinks = [
+      'https://www.example.com/image1',
+      'https://www.example.com/image2',
+      'https://www.example.com/image3',
+      'https://www.example.com/image4',
+      'https://www.example.com/image5'
+    ];
+    let currentHeroImage = 0;
+    const heroSection = document.getElementById('hero');
+    const heroImageContainer = document.getElementById('hero-image-container');
+    const heroImageElement = document.getElementById('hero-clickable-image');
+
+    // Preload images to prevent flickering
+    heroImages.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+
+    // Set initial clickable image source and background
+    heroImageElement.src = heroImages[currentHeroImage];
+    heroImageContainer.style.backgroundImage = `url(${heroImages[currentHeroImage]})`;
+
+    // Handle hero section click to open link in new tab
+    heroSection.addEventListener('click', (e) => {
+      // Prevent the click from triggering if the SHOP NOW button is clicked
+      if (e.target.classList.contains('cta-button')) {
+        return;
+      }
+      window.open(heroLinks[currentHeroImage], '_blank');
+    });
+
+    function changeHeroBackground() {
+      currentHeroImage = (currentHeroImage + 1) % heroImages.length;
+      heroImageContainer.style.backgroundImage = `url(${heroImages[currentHeroImage]})`;
+      heroImageElement.src = heroImages[currentHeroImage];
+    }
+
+    // Change image every 2 seconds
+    setInterval(changeHeroBackground, 2000);
+
+    // Scroll functionality for features section
+    document.querySelectorAll('.scroll-arrow').forEach(button => {
+      button.addEventListener('click', () => {
+        const targetId = button.dataset.target;
+        const container = document.getElementById(targetId);
+        const scrollAmount = 300;
+        if (button.classList.contains('left')) {
+          container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        } else {
+          container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Add to cart functionality
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        const name = button.dataset.name;
+        const price = parseFloat(button.dataset.price);
+        const image = button.dataset.image;
+
+        const cartItem = { name, price, image, quantity: 1, userId: "user123" };
+
+       fetch('https://new-plant-1.onrender.com/cart', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(cartItem),
+        })
+          .then(res => {
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            return res.json();
+          })
+          .then(data => {
+            if (data.success) {
+              alert(`${name} added to cart!`);
+            } else {
+              alert('Error adding item to cart.');
+            }
+          })
+          .catch(err => {
+            alert('Error adding item to cart. Please ensure the server is running.');
+            console.error(err);
+          });
+      });
+    });
+
+    // Wishlist functionality
+    function addToWishlist(name, price, image) {
+      const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+      if (!wishlist.some(item => item.name === name)) {
+        wishlist.push({ name, price, image });
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+        alert(`${name} added to wishlist!`);
+      } else {
+        alert(`${name} is already in your wishlist.`);
+      }
+    }
+
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      const boxes = document.querySelectorAll('.box, .box1');
+      boxes.forEach(box => {
+        const name = box.querySelector('h3, h2').textContent.toLowerCase();
+        box.style.display = name.includes(searchTerm) ? 'block' : 'none';
+      });
+    });
+  </script>
+</html>
